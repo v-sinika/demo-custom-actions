@@ -1,0 +1,39 @@
+name: 'Custom Checkout'
+description: 'Custom checkout action with organization-specific features'
+author: 'Demo Organization'
+
+inputs:
+  repository:
+    description: 'Repository name with owner'
+    required: false
+    default: ${{ github.repository }}
+  ref:
+    description: 'The branch, tag or SHA to checkout'
+    required: false
+    default: ''
+  token:
+    description: 'Personal access token'
+    required: false
+    default: ${{ github.token }}
+  fetch-depth:
+    description: 'Number of commits to fetch'
+    required: false
+    default: '1'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        repository: ${{ inputs.repository }}
+        ref: ${{ inputs.ref }}
+        token: ${{ inputs.token }}
+        fetch-depth: ${{ inputs.fetch-depth }}
+    
+    - name: Log checkout info
+      shell: bash
+      run: |
+        echo "✅ Custom checkout completed"
+        echo "Repository: ${{ inputs.repository }}"
+        echo "Ref: ${{ inputs.ref || 'default branch' }}"

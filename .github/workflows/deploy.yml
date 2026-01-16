@@ -1,0 +1,43 @@
+name: 'Custom Deploy'
+description: 'Deployment action for organization infrastructure'
+author: 'Demo Organization'
+
+inputs:
+  environment:
+    description: 'Target environment (dev, staging, prod)'
+    required: true
+  version:
+    description: 'Version to deploy'
+    required: false
+    default: 'latest'
+  dry-run:
+    description: 'Run without making actual changes'
+    required: false
+    default: 'false'
+
+outputs:
+  deployment-url:
+    description: 'URL of the deployed application'
+    value: ${{ steps.deploy.outputs.url }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Validate environment
+      shell: bash
+      run: |
+        if [[ ! "${{ inputs.environment }}" =~ ^(dev|staging|prod)$ ]]; then
+          echo "❌ Invalid environment: ${{ inputs.environment }}"
+          exit 1
+        fi
+        echo "✅ Environment validated: ${{ inputs.environment }}"
+    
+    - name: Deploy application
+      id: deploy
+      shell: bash
+      run: |
+        echo "🚀 Deploying to ${{ inputs.environment }}"
+        echo "Version: ${{ inputs.version }}"
+        echo "Dry run: ${{ inputs.dry-run }}"
+        echo "url=https://${{ inputs.environment }}.example.com" >> $GITHUB_OUTPUT
+        echo "✅ Deployment completed"
