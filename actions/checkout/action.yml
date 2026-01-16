@@ -1,6 +1,6 @@
 name: 'Custom Checkout'
 description: 'Custom checkout action with organization-specific features'
-author: 'Demo Organization'
+author: 'Vladimir Sinica'
 
 inputs:
   repository:
