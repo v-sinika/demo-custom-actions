@@ -17,9 +17,9 @@ Deployment action for organization's infrastructure.
 
 ```yaml
 # In your workflow file:
-uses: YOUR_ORG/demo-custom-actions/checkout@main
-uses: YOUR_ORG/demo-custom-actions/setup-node@main
-uses: YOUR_ORG/demo-custom-actions/deploy@main
+uses: v-sinika/demo-custom-actions/checkout@main
+uses: v-sinika/demo-custom-actions/setup-node@main
+uses: v-sinika/demo-custom-actions/deploy@main
 ```
 
 ## Note
